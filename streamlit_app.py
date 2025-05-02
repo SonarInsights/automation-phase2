@@ -11,6 +11,10 @@ from tqdm import tqdm
 import ast
 import logging
 import os
+import backoff
+from typing import Optional, Union, List, Dict, Any
+
+
 
 # === KONFIGURASI LOGGING ===
 from logging.handlers import RotatingFileHandler
@@ -38,6 +42,23 @@ def process(
         df_raw_data: pd.DataFrame,
 ) -> pd.DataFrame:
     logger.info("Mulai proses klasifikasi issue dan sub-issue")
+
+    # --- Filter hanya baris yang memenuhi syarat ---
+    if "Issue" not in df_raw_data.columns:
+        df_raw_data["Issue"] = ""
+    if "Noise Tag" not in df_raw_data.columns:
+        df_raw_data["Noise Tag"] = ""
+
+    condition = (df_raw_data["Issue"].astype(str).str.strip() == "") | (df_raw_data["Noise Tag"].astype(str).str.strip() != "2")
+    df_to_process = df_raw_data[condition].copy()
+
+    logger.info(f"Jumlah baris yang diproses: {len(df_to_process)} dari total {len(df_raw_data)}")
+
+    if df_to_process.empty:
+        logger.warning("Tidak ada baris yang memenuhi kriteria untuk diproses.")
+        return df_raw_data, 0, 0, 0
+
+
     if not all(col in df_raw_data.columns for col in ["Campaigns","Title","Content"]):
         logger.error("Column 'Campaigns' or 'Title' or 'Content' not found in the raw data.")
         return df_raw_data, 0, 0, 0
@@ -46,7 +67,7 @@ def process(
         list_issue, list_sub_issue, dict_sub_issue = [], [], {}
         completion_tokens, prompt_tokens, total_tokens = 0, 0, 0
         
-        batch_content = token_based_split(df_raw_data)
+        batch_content = token_based_split(df_to_process)
         batch_issue = []
         
         #print(len(batch_content[8]))
@@ -94,7 +115,7 @@ def process(
                     continue
         
         list_issue = []
-        for index, row in tqdm(df_raw_data.iterrows(), desc="STEP 2/4 Select Issue", total=df_raw_data.shape[0]):
+        for index, row in tqdm(df_to_process.iterrows(), desc="STEP 2/4 Select Issue", total=df_to_process.shape[0]):
             _batch_issue = list(set(batch_issue))
             own_issue = "\n".join(_batch_issue)
 
@@ -135,13 +156,13 @@ def process(
                     logger.error(f"Gagal menyimpan checkpoint: {str(e)}")
                     continue
         
-        df_raw_data['Issue'] = list_issue
+        df_to_process['Issue'] = list_issue
         
         list_issue = list(set(df_raw_data["Issue"].dropna().tolist()))
         dict_sub_issue = {}
         for index, issue in tqdm(enumerate(list_issue), desc="STEP 3/4 Generate Sub Issue", total=len(list_issue)):
             if is_valid_issue(issue):
-                filter_data = df_raw_data[df_raw_data['Issue'] == issue]
+                filter_data = df_to_process[df_to_process['Issue'] == issue]
 
                 batch_content = token_based_split(filter_data)
                 batch_sub_issue = []
@@ -190,9 +211,9 @@ def process(
                     dict_sub_issue[issue] = batch_sub_issue
         
         list_sub_issue = []
-        for index, row in tqdm(df_raw_data.iterrows(), desc="STEP 4/4 Select Sub Issue", total=df_raw_data.shape[0]):
+        for index, row in tqdm(df_to_process.iterrows(), desc="STEP 4/4 Select Sub Issue", total=df_to_process.shape[0]):
             if is_valid_issue(row['Issue']):
-                _batch_issue = list(set(dict_sub_issue[row['Issue']]))
+                _batch_issue = list(set(dict_sub_issue.get(row['Issue'], [])))
                 own_issue = "\n".join(_batch_issue)
 
                 content_collection = "Campaign\tTitle\tContent\n"
@@ -233,14 +254,16 @@ def process(
             else:
                 list_sub_issue.append("unknown")
         
-        df_raw_data['Sub Issue'] = list_sub_issue
+        df_to_process['Sub Issue'] = list_sub_issue
 
         price_input, price_output, total = estimate_cost(prompt_tokens, completion_tokens)
 
-        '''print(f"\nPrice Input: ${price_input}")
-        print(f"Price Output: ${price_output}")
-        print(f"Total: ${total}")
-        print("This is only an estimate, the cost may not be accurate")'''
+        df_raw_data.update(df_to_process)
+
+        #print(f"\nPrice Input: ${price_input}")
+        #print(f"Price Output: ${price_output}")
+        #print(f"Total: ${total}")
+        #print("This is only an estimate, the cost may not be accurate")
         
         #sub_issue_df = pd.DataFrame(dict_sub_issue.items(), columns=['Issue', 'Sub Issues'])
         #sub_issue_df.to_excel(f"sub_issues.xlsx", index=False)
@@ -456,6 +479,7 @@ def estimate_cost(
 # === MULAI STREAMLIT APP ===
 st.title("Insight Automation Phase 2")
 
+
 # --- Try something
 try:
     load_success = True
@@ -464,14 +488,14 @@ except Exception as e:
 
 if load_success:
     uploaded_raw = st.file_uploader("Upload Raw Data", type=["xlsx"], key="raw")
-    submit = st.button("Submit")
+    submit = st.button("Submit", key="submit_button")
+
 
     if submit:
         if uploaded_raw is None:
             st.error("❌ Anda harus memilih upload raw data sebelum submit.")
         else:
             st.success(f"✅ File Loaded Successfully!")
-
             start_time = time.time()
 
             try:
@@ -523,35 +547,32 @@ if load_success:
 
                 _Catatan: Ini hanya estimasi, biaya aktual mungkin berbeda._
                 """)
-                st.write(f"Total data yang diproses: {len(result)} baris")
-                st.dataframe(result.head(5))
 
-            # 2. Tombol Download Hasil di paling bawah
-            st.success(f"⏱️ Proses selesai dalam {int(minutes)} menit {int(seconds)} detik")
-            try:
-                with open(output_filename, "rb") as f:
-                    st.download_button(
-                        label="⬇️ Download Hasil Excel",
-                        data=f.read(),
-                        file_name=output_filename,
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                    )
-            except Exception as e:
-                st.error(f"❌ Gagal membuka file hasil: {e}")
+            # 2. Tombol Download Hasil Excel (tetap tampil, tidak menghilang)
+            with open(output_filename, "rb") as file:
+                st.download_button(
+                    label="⬇️ Download Hasil Excel",
+                    data=file.read(),
+                    file_name=output_filename,
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    key="download_excel"
+                )
 
+            # 3. Tombol download log file (jika ada)
+            #if os.path.exists("app_log.txt"):
+            #    with open("app_log.txt", "rb") as log_file:
+            #        st.download_button(
+            #            label="⬇️ Download Log File",
+            #            data=log_file.read(),
+            #            file_name="app_log.txt",
+            #            mime="text/plain",
+            #            key="download_log"
+            #        )
 
-            # 3 Tombol download log (opsional)
-            if st.button("⬇️ Download Log File"):
-                try:
-                    with open("app_log.txt", "rb") as log_file:
-                        st.download_button(
-                            label="Download app_log.txt",
-                            data=log_file.read(),
-                            file_name="app_log.txt",
-                            mime="text/plain"
-                        )
-                except Exception as e:
-                    st.error(f"Gagal membuka log file: {e}")
+            # 4. Tombol reset untuk memulai ulang proses
+            #if st.button("🔄 Mulai dari Awal"):
+            #    st.experimental_rerun()
+
 
 else:
     st.stop()
