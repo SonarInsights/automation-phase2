@@ -1,0 +1,1 @@
+2025-05-06 07:59:45,471 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
