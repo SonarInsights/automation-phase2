@@ -13,22 +13,91 @@ import logging
 import os
 import backoff
 from typing import Optional, Union, List, Dict, Any
-
-
-
-# === KONFIGURASI LOGGING ===
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
 from logging.handlers import RotatingFileHandler
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        RotatingFileHandler("app_log.txt", maxBytes=5_000_000, backupCount=2),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
+from pytz import timezone
+import pytz
+
+
+# Fungsi untuk autentikasi Google Drive
+def init_drive_service():
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gdrive_credentials"],
+        scopes=["https://www.googleapis.com/auth/drive"]
+    )
+    return build("drive", "v3", credentials=credentials)
+
+# Fungsi untuk upload atau overwrite log file ke folder Google Drive
+def upload_log_to_drive(local_file_path: str, folder_id: str):
+    service = init_drive_service()
+    file_name = os.path.basename(local_file_path)
+
+    # Cek apakah file sudah ada di folder
+    query = f"name='{file_name}' and '{folder_id}' in parents and trashed=false"
+    response = service.files().list(q=query, spaces='drive', fields="files(id, name)").execute()
+    files = response.get('files', [])
+
+    media = MediaFileUpload(local_file_path, mimetype="text/plain")
+
+    if files:
+        # Overwrite (update)
+        file_id = files[0]["id"]
+        service.files().update(fileId=file_id, media_body=media).execute()
+        logger.info(f"📤 Log file '{file_name}' berhasil di-overwrite di Google Drive.")
+    else:
+        # Upload baru
+        file_metadata = {
+            "name": file_name,
+            "parents": [folder_id]
+        }
+        service.files().create(body=file_metadata, media_body=media, fields="id").execute()
+        logger.info(f"📤 Log file '{file_name}' berhasil di-upload ke Google Drive.")
+
+
+# Buat folder log jika belum ada
+os.makedirs("log", exist_ok=True)
+
+# Formatter agar log pakai waktu Asia/Jakarta (GMT+7)
+class JakartaFormatter(logging.Formatter):
+    def converter(self, timestamp):
+        return datetime.fromtimestamp(timestamp, timezone("Asia/Jakarta"))
+
+    def formatTime(self, record, datefmt=None):
+        dt = self.converter(record.created)
+        return dt.strftime(datefmt or "%Y-%m-%d %H:%M:%S,%f")[:-3]
+
+# Nama file log sesuai tanggal di Asia/Jakarta
+today_str = datetime.now(timezone("Asia/Jakarta")).strftime("%Y_%m_%d")
+log_filename = f"log/{today_str}_app_log.txt"
+
+# Handler + formatter
+formatter = JakartaFormatter("%(asctime)s - %(levelname)s - %(message)s")
+
+file_handler = RotatingFileHandler(log_filename, maxBytes=5_000_000, backupCount=2)
+file_handler.setFormatter(formatter)
+
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+
+# Atur logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.handlers = [file_handler, console_handler]
 
 encoding = tiktoken.encoding_for_model("gpt-4o")
+
+#fungsi ubah usd ke idr
+def get_usd_to_idr():
+    try:
+        response = requests.get("https://api.exchangerate.host/latest?base=USD&symbols=IDR")
+        if response.status_code == 200:
+            return response.json()["rates"]["IDR"]
+    except Exception as e:
+        logger.warning(f"Gagal mendapatkan kurs real-time, fallback ke 16000: {e}")
+    return 16000  # fallback nilai default
+
 
 try:
     openai_model = st.secrets["OPENAI_MODEL"]
@@ -487,16 +556,45 @@ except Exception as e:
     load_success = False
 
 if load_success:
+
+    # --- Inisialisasi session state ---
+    if "is_processing_done" not in st.session_state: #buat spinner
+        st.session_state["is_processing_done"] = False
+
+    if "output_filename" not in st.session_state: #buat output filename
+        st.session_state["output_filename"] = None
+
+    if "is_processing_fade" not in st.session_state: #buat layer fade
+        st.session_state["is_processing_fade"] = False
+
+    if "usd_to_idr" not in st.session_state: #buat conevert to idr
+        st.session_state["usd_to_idr"] = get_usd_to_idr()
+
     uploaded_raw = st.file_uploader("Upload Raw Data", type=["xlsx"], key="raw")
     submit = st.button("Submit", key="submit_button")
 
+    # ✅ AKHIR FILE - Render layer fade hanya jika is_processing_fade = True
+    if st.session_state.get("is_processing_fade"):
+        st.markdown(
+            """
+            <div style="position:fixed; top:0; left:0; width:100%; height:100%; 
+                        background-color:rgba(0, 0, 0, 0.5); z-index:9999;
+                        display:flex; align-items:center; justify-content:center;
+                        color:white; font-size:24px;">
+                ⏳ Sedang memproses data... mohon tunggu...
+            </div>
+            """, unsafe_allow_html=True)
 
     if submit:
         if uploaded_raw is None:
             st.error("❌ Anda harus memilih upload raw data sebelum submit.")
         else:
+            # Nyalakan state untuk proses
+            st.session_state["is_processing_fade"] = True
+
             st.success(f"✅ File Loaded Successfully!")
             start_time = time.time()
+            logger.info("✅ Streamlit app dimulai.")
 
             try:
                 df_raw = pd.read_excel(uploaded_raw, sheet_name=0)
@@ -506,9 +604,15 @@ if load_success:
             if "Campaign" in df_raw.columns:
                 df_raw = df_raw.rename(columns={"Campaign": "Campaigns"})
             df_processed = df_raw.copy()
-            
-            #result = process(df_processed)
-            result, price_input, price_output, total_price = process(df_processed)
+
+
+            # Spinner agar UI tetap aktif
+            with st.spinner("⏳ Sedang memproses data... mohon tunggu..."):
+                result, price_input, price_output, total_price = process(df_processed)
+
+
+            #result = process(df_processed) (DIHAPUS KARENA ATASNYA DI JALANKAN PAKAI SPINNER)
+            #result, price_input, price_output, total_price = process(df_processed)
 
             # Save Output
             # Ambil nama file asli tanpa ekstensi
@@ -531,32 +635,52 @@ if load_success:
             hours, remainder = divmod(duration_seconds, 3600)
             minutes, seconds = divmod(remainder, 60)
 
-            st.info(f"🕒 Proses ini berjalan selama {int(hours)} jam {int(minutes)} menit {int(seconds)} detik.")
-            
+            # ⛔ MATIKAN LAYER FADE SETELAH SELESAI
+            st.session_state["is_processing_fade"] = False
+
+             # ✅ SET SESSION STATE (TARUH DI SINI)
+            st.session_state["is_processing_done"] = True
+            st.session_state["output_filename"] = output_filename
+            st.session_state["price_input"] = price_input
+            st.session_state["price_output"] = price_output
+            st.session_state["total_price"] = total_price
+            st.session_state["duration"] = f"{int(hours)} jam {int(minutes)} menit {int(seconds)} detik"
+            #simpan waktu
+            st.session_state["duration_hours"] = int(hours)
+            st.session_state["duration_minutes"] = int(minutes)
+            st.session_state["duration_seconds"] = int(seconds)
+
+
+            # Di akhir blok if submit:
             logger.info("Proses selesai. Data dikembalikan.")
+            
+            # Upload log ke Google Drive
+            upload_log_to_drive(log_filename, st.secrets["GDRIVE_LOG_FOLDER_ID"])
+
+            #st.info(f"🕒 Proses ini berjalan selama {int(hours)} jam {int(minutes)} menit {int(seconds)} detik.")
 
             # 1. Tampilkan Summary Execution Report
-            st.subheader("📊 Summary Execution Report")
-            with st.expander("📊 Lihat Summary Execution Report"):
-                st.markdown(f"""
-                **💰 Estimasi Biaya Token OpenAI:**
+            #st.subheader("📊 Summary Execution Report")
+            #with st.expander("📊 Lihat Summary Execution Report"):
+            #    st.markdown(f"""
+            #    **💰 Estimasi Biaya Token OpenAI:**
 
-                - Price Input: **${price_input:.4f}**
-                - Price Output: **${price_output:.4f}**
-                - Total Estimate: **${total_price:.4f}**
+            #    - Price Input: **${price_input:.4f}**
+            #    - Price Output: **${price_output:.4f}**
+            #    - Total Estimate: **${total_price:.4f}**
 
-                _Catatan: Ini hanya estimasi, biaya aktual mungkin berbeda._
-                """)
+            #    _Catatan: Ini hanya estimasi, biaya aktual mungkin berbeda._
+            #    """)
 
             # 2. Tombol Download Hasil Excel (tetap tampil, tidak menghilang)
-            with open(output_filename, "rb") as file:
-                st.download_button(
-                    label="⬇️ Download Hasil Excel",
-                    data=file.read(),
-                    file_name=output_filename,
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    key="download_excel"
-                )
+            #with open(output_filename, "rb") as file:
+            #    st.download_button(
+            #        label="⬇️ Download Hasil Excel",
+            #        data=file.read(),
+            #        file_name=output_filename,
+            #        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            #        key="download_excel"
+            #    )
 
             # 3. Tombol download log file (jika ada)
             #if os.path.exists("app_log.txt"):
@@ -574,5 +698,45 @@ if load_success:
             #    st.experimental_rerun()
 
 
+    
+
+    if st.session_state.get("is_processing_done"):
+        st.info(f"🕒 Proses ini berjalan selama {st.session_state['duration_hours']} jam {st.session_state['duration_minutes']} menit {st.session_state['duration_seconds']} detik.")
+
+        # 1. Tampilkan Summary Execution Report
+        st.subheader("📊 Summary Execution Report")
+        with st.expander("📊 Lihat Summary Execution Report"):
+            
+            usd_to_idr = st.session_state["usd_to_idr"]
+            price_input = st.session_state["price_input"]
+            price_output = st.session_state["price_output"]
+            total_price = st.session_state["total_price"]
+
+            price_input_idr = price_input * usd_to_idr
+            price_output_idr = price_output * usd_to_idr
+            total_price_idr = total_price * usd_to_idr
+            
+            st.markdown(f"""
+                **💰 Estimasi Biaya Token OpenAI:**
+
+                - Price Input: **${price_input:.4f}** (±Rp{price_input_idr:,.0f})
+                - Price Output: **${price_output:.4f}** (±Rp{price_output_idr:,.0f})
+                - Total Estimate: **${total_price:.4f}** (±Rp{total_price_idr:,.0f})
+
+                _Catatan: Kurs saat ini = Rp{usd_to_idr:,.0f} per 1 USD. Ini hanya estimasi, biaya aktual mungkin berbeda._
+                """)
+
+        # 2. Tombol Download Hasil Excel (tetap tampil, tidak menghilang)
+        with open(st.session_state["output_filename"], "rb") as file:
+            st.download_button(
+                label="⬇️ Download Hasil Excel",
+                data=file.read(),
+                file_name=st.session_state["output_filename"],
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key="download_excel"
+            )
+
+    
 else:
     st.stop()
+

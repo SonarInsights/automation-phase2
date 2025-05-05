@@ -1,0 +1,201 @@
+2025-05-05 11:26:23,069 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
+2025-05-05 11:26:34,670 - INFO - ✅ Streamlit app dimulai.
+2025-05-05 11:26:34,763 - INFO - Mulai proses klasifikasi issue dan sub-issue
+2025-05-05 11:26:34,766 - INFO - Jumlah baris yang diproses: 10 dari total 12
+2025-05-05 11:26:36,870 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:37,426 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:38,096 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:38,702 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:39,432 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:40,308 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:41,336 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:41,906 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:42,413 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:42,947 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:42,960 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:26:43,485 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:44,009 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:44,470 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:45,079 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:45,984 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:46,540 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:47,216 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:48,070 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:48,915 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:49,976 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:49,999 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:26:50,730 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:26:50,778 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 11:26:59,123 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 11:29:48,398 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
+2025-05-05 11:29:59,125 - INFO - ✅ Streamlit app dimulai.
+2025-05-05 11:29:59,138 - INFO - Mulai proses klasifikasi issue dan sub-issue
+2025-05-05 11:29:59,140 - INFO - Jumlah baris yang diproses: 10 dari total 12
+2025-05-05 11:30:01,509 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:02,186 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:02,841 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:03,357 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:04,322 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:04,956 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:05,901 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:06,469 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:07,084 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:07,811 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:07,826 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:30:09,052 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:09,612 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:10,414 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:11,200 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:12,128 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:12,708 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:13,773 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:14,746 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:15,531 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:16,196 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:16,218 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:30:17,063 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:30:17,103 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 11:30:17,104 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 11:37:09,649 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
+2025-05-05 11:37:21,355 - INFO - ✅ Streamlit app dimulai.
+2025-05-05 11:37:21,368 - INFO - Mulai proses klasifikasi issue dan sub-issue
+2025-05-05 11:37:21,369 - INFO - Jumlah baris yang diproses: 10 dari total 12
+2025-05-05 11:37:23,958 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:24,488 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:25,139 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:25,721 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:26,313 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:27,026 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:27,532 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:28,371 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:28,887 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:29,571 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:29,589 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:37:30,223 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:31,045 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:31,752 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:32,349 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:33,213 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:34,096 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:34,743 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:35,629 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:36,751 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:38,283 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:38,292 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:37:39,169 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:37:39,212 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 11:37:39,213 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 11:39:33,725 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
+2025-05-05 11:39:41,121 - INFO - ✅ Streamlit app dimulai.
+2025-05-05 11:39:41,144 - INFO - Mulai proses klasifikasi issue dan sub-issue
+2025-05-05 11:39:41,147 - INFO - Jumlah baris yang diproses: 10 dari total 12
+2025-05-05 11:39:43,957 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:44,767 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:45,286 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:45,933 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:46,672 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:47,631 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:48,282 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:49,119 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:49,864 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:50,473 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:50,487 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:39:51,215 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:51,790 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:52,483 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:53,011 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:56,487 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:57,193 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:57,769 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:39:59,270 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:40:00,046 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:40:00,689 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:40:00,703 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 11:40:01,827 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 11:40:01,873 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 11:40:01,874 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 18:41:41,491 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
+2025-05-05 18:41:47,553 - INFO - ✅ Streamlit app dimulai.
+2025-05-05 18:41:47,566 - INFO - Mulai proses klasifikasi issue dan sub-issue
+2025-05-05 18:41:47,568 - INFO - Jumlah baris yang diproses: 10 dari total 12
+2025-05-05 18:41:49,571 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:50,232 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:50,808 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:51,393 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:53,083 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:53,684 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:54,563 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:55,261 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:56,345 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:57,174 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:57,185 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 18:41:57,877 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:41:58,381 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:01,085 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:06,821 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:08,189 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:08,828 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:09,291 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:10,158 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:11,119 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:11,738 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:11,754 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 18:42:12,493 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 18:42:12,539 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 18:42:12,540 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 19:00:08,270 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
+2025-05-05 19:00:15,740 - INFO - ✅ Streamlit app dimulai.
+2025-05-05 19:00:15,754 - INFO - Mulai proses klasifikasi issue dan sub-issue
+2025-05-05 19:00:15,755 - INFO - Jumlah baris yang diproses: 10 dari total 12
+2025-05-05 19:00:20,150 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:21,119 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:21,725 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:22,634 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:23,543 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:24,187 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:24,908 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:25,872 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:26,516 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:27,694 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:27,710 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 19:00:28,659 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:29,479 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:30,485 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:31,267 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:32,125 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:33,009 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:33,772 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:34,726 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:39,033 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:39,805 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:39,817 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 19:00:40,883 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:00:40,938 - INFO - Proses selesai. Data dikembalikan.
+2025-05-05 19:03:59,505 - WARNING - Gagal mendapatkan kurs real-time, fallback ke 16000: 'rates'
+2025-05-05 19:04:05,192 - INFO - ✅ Streamlit app dimulai.
+2025-05-05 19:04:05,289 - INFO - Mulai proses klasifikasi issue dan sub-issue
+2025-05-05 19:04:05,292 - INFO - Jumlah baris yang diproses: 10 dari total 12
+2025-05-05 19:04:08,593 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:09,302 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:09,886 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:10,551 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:11,250 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:12,117 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:13,213 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:14,304 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:15,227 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:15,934 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:15,950 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 19:04:17,226 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:17,834 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:18,508 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:19,038 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:19,846 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:20,430 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:21,788 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:22,791 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:23,384 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:23,947 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:23,957 - INFO - Checkpoint disimpan di: checkpoints/checkpoint_issue_sub_issue_method_2.xlsx (index ke-10)
+2025-05-05 19:04:24,948 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-05 19:04:24,990 - INFO - Proses selesai. Data dikembalikan.
