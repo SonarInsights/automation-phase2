@@ -564,8 +564,7 @@ if load_success:
     if "output_filename" not in st.session_state: #buat output filename
         st.session_state["output_filename"] = None
 
-    if "is_processing_fade" not in st.session_state: #buat layer fade
-        st.session_state["is_processing_fade"] = False
+    
 
     if "usd_to_idr" not in st.session_state: #buat conevert to idr
         st.session_state["usd_to_idr"] = get_usd_to_idr()
@@ -573,25 +572,10 @@ if load_success:
     uploaded_raw = st.file_uploader("Upload Raw Data", type=["xlsx"], key="raw")
     submit = st.button("Submit", key="submit_button")
 
-    # ✅ AKHIR FILE - Render layer fade hanya jika is_processing_fade = True
-    if st.session_state.get("is_processing_fade"):
-        st.markdown(
-            """
-            <div style="position:fixed; top:0; left:0; width:100%; height:100%; 
-                        background-color:rgba(0, 0, 0, 0.5); z-index:9999;
-                        display:flex; align-items:center; justify-content:center;
-                        color:white; font-size:24px;">
-                ⏳ Sedang memproses data... mohon tunggu...
-            </div>
-            """, unsafe_allow_html=True)
-
     if submit:
         if uploaded_raw is None:
             st.error("❌ Anda harus memilih upload raw data sebelum submit.")
         else:
-            # Nyalakan state untuk proses
-            st.session_state["is_processing_fade"] = True
-
             st.success(f"✅ File Loaded Successfully!")
             start_time = time.time()
             logger.info("✅ Streamlit app dimulai.")
@@ -634,9 +618,6 @@ if load_success:
             duration_seconds = end_time - start_time
             hours, remainder = divmod(duration_seconds, 3600)
             minutes, seconds = divmod(remainder, 60)
-
-            # ⛔ MATIKAN LAYER FADE SETELAH SELESAI
-            st.session_state["is_processing_fade"] = False
 
              # ✅ SET SESSION STATE (TARUH DI SINI)
             st.session_state["is_processing_done"] = True
